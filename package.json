@@ -1,0 +1,8 @@
+{
+  "name": "allow-debug-now",
+  "version": "0.1.0",
+  "main": "index.js",
+  "repository": "git@github.com:gahabeen/allow-debug-now.git",
+  "author": "Gabin Desserprit <desserprit.gabin@gmail.com>",
+  "license": "MIT"
+}
