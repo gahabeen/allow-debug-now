@@ -11,3 +11,6 @@ Chrome extension to debug a web page, even when dev tries to forbid it
 ### Note
 I'll see to provide a packaged version later.
 Still way too early. Just playing.
+
+### Warning
+Don't forget to disable it when not required as it would probably destroy your experience on other websites.

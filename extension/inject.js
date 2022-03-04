@@ -1,10 +1,3 @@
-
-const __uk = Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-
-window[__uk] = Object.freeze({
-  log: window.console.log,
-});
-
 const override = (object, key, fn = function () { }) => Object.defineProperty(object, key, {
   value: fn,
   writable: false,
@@ -24,5 +17,3 @@ for (const method in console) {
 
 const perfNow = window.performance.now()
 override(window['performance'], 'now', () => perfNow);
-
-window[__uk].log('Allow debug now')
