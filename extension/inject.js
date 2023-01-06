@@ -1,19 +1,36 @@
-const override = (object, key, fn = function () { }) => Object.defineProperty(object, key, {
-  value: fn,
-  writable: false,
-  configurable: false
-});
+(() => {
+  const defineProperty = Object.defineProperty;
 
-override(document, 'createElement', document.createElement.bind(document));
-override(window, 'setTimeout');
-override(window, 'clearTimeout');
-override(window, 'setInterval');
-override(window, 'clearInterval');
-override(window, 'alert');
+  const override = (object, key, fn = function () { }) => {
+    try {
+      defineProperty(object, key, {
+        value: fn,
+        writable: false,
+        configurable: false
+      })
+    } catch (error) {
+      // Fail silently
+      console.log('Failed to override', key, 'on', object);
+    }
+  };
 
-for (const method in console) {
-  override(window['console'], method);
-}
+  const overrideMethods = (object, fn) => {
+    for (const method in object) {
+      if (typeof object[method] === 'function') {
+        override(object, method, fn || object[method].bind(object));
+      }
+    }
+  };
 
-const perfNow = window.performance.now()
-override(window['performance'], 'now', () => perfNow);
+  const perfNow = window.performance.now()
+  override(window['performance'], 'now', () => perfNow);
+
+  overrideMethods(window['console'], () => { });
+  overrideMethods(window['Math']);
+  overrideMethods(window['performance']);
+  overrideMethods(window['CanvasRenderingContext2D']);
+  overrideMethods(window);
+  overrideMethods(Object);
+  overrideMethods(document);
+
+})();
