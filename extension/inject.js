@@ -1,5 +1,6 @@
 (() => {
   const defineProperty = Object.defineProperty;
+  const log = console.log.bind(console);
 
   const override = (object, key, fn = function () { }) => {
     try {
@@ -10,7 +11,7 @@
       })
     } catch (error) {
       // Fail silently
-      console.log('Failed to override', key, 'on', object);
+      log('Failed to override', key, 'on', object);
     }
   };
 
@@ -32,5 +33,4 @@
   overrideMethods(window);
   overrideMethods(Object);
   overrideMethods(document);
-
 })();
